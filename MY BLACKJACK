@@ -1,0 +1,70 @@
+import random
+
+class card:
+    def __init__(self,shape,value):
+        self.shape = shape
+        self.value = value
+
+
+class deck:
+    def __init__(self, cards = None):
+        if cards == None:
+            self.cards = []
+        else:
+            self.cards = cards
+    @property
+    def ResetDeck(self):
+        self.cards = []
+        shapes = ["of Hearts","of Spades","of Clubs","of Diamond"]
+        for x in shapes:
+            for y in range(1,14):
+                addedCard  = card(x,y)
+                self.cards.append(addedCard)
+        return self.cards
+    def __str__(self):
+        string = ""
+        for x in self.cards:
+            string += str(x.value) + " " + x.shape + "\n"
+        return string
+    @property
+    def shuffle(self):
+        random.shuffle(self.cards)
+        return self.cards
+    @property
+    def popoff(self):
+        self.cards.pop(0)
+        return self.cards
+
+class player():
+    def __init__(self,username,playerhand = None):
+        self.username = username
+        if playerhand == None:
+            self.playerhand = []
+        else:
+            self.playerhand = playerhand
+    def draw(self,deck):
+        self.deck = deck
+        self.playerhand.append(deck.cards[0])
+        deck.popoff
+    @property
+    def DisplayHand(self):
+        i = card("",0)
+        if self.playerhand == []:
+            print("Empty Hand Bro!")
+        else:
+            print("Your Hand is:")
+            for i in self.playerhand:
+                print("{} {} ".format(i.value,i.shape))
+
+    
+        
+        
+    
+X = deck()
+X.ResetDeck
+X.shuffle
+Y = player("John")
+##print(str(X))
+Y.draw(X)
+Y.draw(X)
+Y.DisplayHand
